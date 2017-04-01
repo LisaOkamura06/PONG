@@ -69,14 +69,19 @@ public class GameMain : MonoBehaviour {
 	private void CreateBullet(Score score)
 	{
 		if (score.isBulletSet) {
-			GameObject b = Instantiate (bulletObj);
-			b.transform.SetParent (bulletParent.transform, false);
-			if(score.type == 1)
-				b.GetComponent<Bullet> ().type = 2;
-			if(score.type == 2)
-				b.GetComponent<Bullet> ().type = 1;
-
-			score.isBulletSet = false;
+			count = count + 1 * Time.deltaTime;
+			if (count >= 1) {
+				GameObject b = Instantiate (bulletObj);
+				b.transform.SetParent (bulletParent.transform, false);
+			
+				if (score.type == 1)
+					b.GetComponent<Bullet> ().type = 2;
+				if (score.type == 2)
+					b.GetComponent<Bullet> ().type = 1;
+					
+				score.isBulletSet = false;
+				count = 0;
+			}
 		}
 	}
 
@@ -105,6 +110,7 @@ public class GameMain : MonoBehaviour {
 		if (count >= 1) {
 			stopObj.SetActive (false);
 			isStart = true;
+			count = 0;
 		}
 	}
 
