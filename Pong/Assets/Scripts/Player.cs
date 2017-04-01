@@ -18,14 +18,14 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (type == 1) {
-			if(!hitTop)
+			if(!this.hitBottom)
 			{
 				if (Input.GetKey (KeyCode.S)) {
 					transform.localPosition = new Vector3 (transform.localPosition.x, transform.localPosition.y - speed * Time.deltaTime, 0f);
 				}
 			} 
 
-			if (!hitBottom) {
+			if (!this.hitTop) {
 				if (Input.GetKey (KeyCode.W)) {
 					transform.localPosition = new Vector3 (transform.localPosition.x, transform.localPosition.y + speed * Time.deltaTime, 0f);
 				}
@@ -33,13 +33,13 @@ public class Player : MonoBehaviour {
 		}
 
 		if (type == 2) {
-			if (!hitTop) {
+			if (!this.hitBottom) {
 				if (Input.GetKey (KeyCode.DownArrow)) {
 					transform.localPosition = new Vector3 (transform.localPosition.x, transform.localPosition.y - speed * Time.deltaTime, 0f);
 				}
 			}
 
-			if (!hitBottom) {
+			if (!this.hitTop) {
 				if (Input.GetKey (KeyCode.UpArrow)) {
 					transform.localPosition = new Vector3 (transform.localPosition.x, transform.localPosition.y + speed * Time.deltaTime, 0f);
 				}
@@ -48,26 +48,30 @@ public class Player : MonoBehaviour {
 	}
 
 
-	void OnTriggerEnter2D(Collider2D col)
+	void OnCollisionEnter2D(Collision2D col)
 	{
-		if(col.tag == "TopWall"){
-			hitTop = true;
+		if(col.gameObject.tag == "TopWall"){
+			this.hitTop = true;
+			return;
 		}
 
-		if (col.tag == "BottomWall") {
-			hitBottom = true;
+		if (col.gameObject.tag == "BottomWall") {
+			this.hitBottom = true;
+			return;
 		}
 	}
 
 
-	void OnTriigerExit2D(Collider2D col)
+	void OnCollisionExit2D(Collision2D col)
 	{
-		if(col.tag == "TopWall"){
-			hitTop = false;
+		if(col.gameObject.tag == "TopWall"){
+			this.hitTop = false;
+			return;
 		}
 
-		if (col.tag == "BottomWall") {
-			hitBottom = false;
+		if (col.gameObject.tag == "BottomWall") {
+			this.hitBottom = false;
+			return;
 		}
 	}
 }
