@@ -2,21 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class TitleMain : MonoBehaviour {
+using UnityEngine.UI;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+public class TitleMain : MonoBehaviour {
+	[SerializeField]
+	private InputField inputPlayer1;
+	[SerializeField]
+	private InputField inputPlayer2;
+	[SerializeField]
+	private GameObject messageTxt;
+
+	void Start()
+	{
+		PlayerPrefs.DeleteAll ();
 	}
 
 	public void ToGameBtn()
 	{
-		SceneManager.LoadScene("Game");
+		if ( inputPlayer1.text != null && inputPlayer2.text != null ) {
+			PlayerPrefs.Save ();
+			messageTxt.SetActive (false);
+			SceneManager.LoadScene ("Game");
+		} else {
+			messageTxt.SetActive (true);
+		}
+	}
+
+
+	public void InputPlayer1()
+	{
+		PlayerPrefs.SetString(Config.PLAYER_NAME_1, inputPlayer1.text);
+	}
+
+	public void InputPlayer2()
+	{
+		PlayerPrefs.SetString(Config.PLAYER_NAME_2, inputPlayer2.text);
 	}
 
 }
