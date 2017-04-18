@@ -19,7 +19,7 @@ public class TitleMain : MonoBehaviour {
 
 	public void ToGameBtn()
 	{
-		if ( inputPlayer1.text != null && inputPlayer2.text != null ) {
+		if ( inputPlayer1.text != "" && inputPlayer2.text != "" ) {
 			PlayerPrefs.Save ();
 			messageTxt.SetActive (false);
 			SceneManager.LoadScene ("Game");

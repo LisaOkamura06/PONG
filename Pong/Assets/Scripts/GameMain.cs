@@ -25,7 +25,7 @@ public class GameMain : MonoBehaviour {
 	[SerializeField]
 	private GameObject bulletParent = null;
 
-	const string RESULT = "PLAYER{0}\nWINNER!!";
+	const string RESULT = "\nWINNER!!";
 	const string STOP = "STOP";
 
 	private Vector3 force;
@@ -89,13 +89,15 @@ public class GameMain : MonoBehaviour {
 	{
 		if (playerScore.isEnd) {
 			stopObj.SetActive (true);
-			stopTxt.text = string.Format (RESULT, playerScore1.type.ToString ());
+			//stopTxt.text = string.Format (RESULT, playerScore1.type.ToString ());
+			stopTxt.text = PlayerPrefs.GetString(Config.PLAYER_NAME_1)+RESULT;
 			Time.timeScale = 0;
 			return;
 		}
 		if (playerScore1.isEnd) {
 			stopObj.SetActive (true);
-			stopTxt.text = string.Format (RESULT, playerScore.type.ToString ());
+			//stopTxt.text = string.Format (RESULT, playerScore.type.ToString ());
+			stopTxt.text = PlayerPrefs.GetString(Config.PLAYER_NAME_2)+RESULT;
 			Time.timeScale = 0;
 			return;
 		}
